@@ -9,6 +9,7 @@ ws.on("open", function open() {
 
   ws.on("message", function incoming(message) {
     const json = JSON.parse(message.toString());
+    console.log(json);
     const { type, data } = json;
     if (type === "news") {
       send2Channel(data.translate);
