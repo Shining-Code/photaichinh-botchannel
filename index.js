@@ -1,3 +1,4 @@
+require("dotenv").config();
 const WebSocket = require("ws");
 const { send2Channel } = require("./bot");
 
