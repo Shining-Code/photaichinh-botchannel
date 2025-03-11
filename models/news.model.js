@@ -23,6 +23,7 @@ const NewsSchema = new mongoose.Schema({
   is_link: { type: Number, default: 0 },
   article_id: { type: String, default: "" },
   unit: { type: String, default: "" },
+  influence: { type: Number, default: 0 },
   en_title: { type: String },
   vi_title: { type: String },
 });

@@ -16,7 +16,18 @@ async function insertNews(news) {
 
       news[i].id = Number(news[i].id);
       news[i].important = Number(news[i].important);
+      if (news[i].influence === "" || news[i].influence === "null") {
+        news[i].influence = 0;
+      } else news[i].influence = Number(news[i].influence);
+      if (news[i].type === "1") {
+        await NewsModel.create(news[i]);
+        continue;
+      }
 
+      if (news[i].translate.length < 50) {
+        send2Channel(news[i].translate);
+        continue;
+      }
       const translated = await translate(news[i].content);
       news[i].translate = translated.vi;
       news[i].en = translated.en;
