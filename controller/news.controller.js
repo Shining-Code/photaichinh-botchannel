@@ -1,6 +1,7 @@
 const { send2Channel } = require("../bot");
 const { translate } = require("../gemini");
 const NewsModel = require("../models/news.model");
+const { broadcast } = require("../wsocket/websocket");
 
 async function insertNews(news) {
   for (let i = 0; i < news.length; i++) {
@@ -37,6 +38,7 @@ async function insertNews(news) {
       }
       await NewsModel.create(news[i]);
       console.log(`📝 Inserted news ${news[i].id}`);
+      broadcast({ type: 1, data: news[i] });
       send2Channel(news[i].translate);
     }
   }
