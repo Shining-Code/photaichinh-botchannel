@@ -16,12 +16,15 @@ const NewsSchema = new mongoose.Schema({
   revised: { type: String, default: "null" },
   time: { type: String },
   translate: { type: String },
+  en: { type: String },
   pub_time: { type: String },
   is_pub: { type: Number, default: 0 },
   id: { type: Number },
   is_link: { type: Number, default: 0 },
   article_id: { type: String, default: "" },
   unit: { type: String, default: "" },
+  en_title: { type: String },
+  vi_title: { type: String },
 });
 
 const NewsModel = mongoConnector.db.model("News", NewsSchema);

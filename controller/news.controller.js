@@ -1,4 +1,5 @@
 const { send2Channel } = require("../bot");
+const { translate } = require("../gemini");
 const NewsModel = require("../models/news.model");
 
 async function insertNews(news) {
@@ -15,6 +16,12 @@ async function insertNews(news) {
 
       news[i].id = Number(news[i].id);
       news[i].important = Number(news[i].important);
+
+      const translated = await translate(news[i].content);
+      news[i].translate = translated.vi;
+      news[i].en = translated.en;
+      news[i].vi_title = translated.vi_summary;
+      news[i].en_title = translated.en_summary;
       await NewsModel.create(news[i]);
       console.log(`📝 Inserted news ${news[i].id}`);
       send2Channel(news[i].translate);
