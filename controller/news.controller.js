@@ -16,7 +16,11 @@ async function insertNews(news) {
 
       news[i].id = Number(news[i].id);
       news[i].important = Number(news[i].important);
-      if (news[i].influence === "" || news[i].influence === "null") {
+      if (
+        news[i].influence === undefined ||
+        news[i].influence === "" ||
+        news[i].influence === "null"
+      ) {
         news[i].influence = 0;
       } else news[i].influence = Number(news[i].influence);
       if (news[i].type === "1") {
@@ -24,15 +28,13 @@ async function insertNews(news) {
         continue;
       }
 
-      if (news[i].translate.length < 110) {
-        send2Channel(news[i].translate);
-        continue;
+      if (news[i].translate.length > 110) {
+        const translated = await translate(news[i].content);
+        news[i].translate = translated.vi;
+        news[i].en = translated.en;
+        news[i].vi_title = translated.vi_summary;
+        news[i].en_title = translated.en_summary;
       }
-      const translated = await translate(news[i].content);
-      news[i].translate = translated.vi;
-      news[i].en = translated.en;
-      news[i].vi_title = translated.vi_summary;
-      news[i].en_title = translated.en_summary;
       await NewsModel.create(news[i]);
       console.log(`📝 Inserted news ${news[i].id}`);
       send2Channel(news[i].translate);
