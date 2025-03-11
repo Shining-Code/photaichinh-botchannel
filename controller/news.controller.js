@@ -24,7 +24,7 @@ async function insertNews(news) {
         continue;
       }
 
-      if (news[i].translate.length < 50) {
+      if (news[i].translate.length < 110) {
         send2Channel(news[i].translate);
         continue;
       }
