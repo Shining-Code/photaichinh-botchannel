@@ -26,12 +26,16 @@ const chatSession = model.startChat({
 });
 
 async function translate(content) {
-  const result = await chatSession.sendMessage(content);
-  const raw = result.response.text();
-  const data = raw.replaceAll("```json", "").replaceAll("```", "");
-  console.log(data);
-  const json = JSON.parse(data);
-  return json;
+  try {
+    const result = await chatSession.sendMessage(content);
+    const raw = result.response.text();
+    const data = raw.replaceAll("```json", "").replaceAll("```", "");
+    console.log(data);
+    const json = JSON.parse(data);
+    return json;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 module.exports = {
