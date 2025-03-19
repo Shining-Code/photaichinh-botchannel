@@ -16,7 +16,9 @@ server.on("connection", (ws) => {
     console.log("WS:Client disconnected");
   });
 });
-console.log("WebSocket server is running on ws://localhost:8080");
+console.log(
+  `WebSocket server is running on ws://localhost:${process.env.WS_PORT}`
+);
 
 function broadcast(message) {
   clients.forEach((client) => {

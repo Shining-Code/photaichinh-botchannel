@@ -29,6 +29,7 @@ async function translate(content) {
   const result = await chatSession.sendMessage(content);
   const raw = result.response.text();
   const data = raw.replaceAll("```json", "").replaceAll("```", "");
+  console.log(data);
   const json = JSON.parse(data);
   return json;
 }
